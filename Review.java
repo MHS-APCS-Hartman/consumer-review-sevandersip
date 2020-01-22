@@ -98,6 +98,53 @@ public class Review {
     }
   }
   
+  public static double totalSentiment(String fileName)
+  {
+    String word = "";
+    double totalSentiment = 0.0;
+    String review = textToString(fileName);
+    review.replaceAll("\\p{Punct}", "");
+    for (int i = 0; i < review.length(); i++)
+    {
+       if(review.substring(i, i+1).equals(" "))
+       {
+          totalSentiment += sentimentVal(word);
+          word = "";
+       }else{
+          word += review.substring(i, i+1);
+          removePunctuation(word);
+       }
+     }
+     return totalSentiment;
+   }
+   
+  // starRating() method added
+   public static int starRating(String filename)
+   {
+      // returns the amount of stars out of five based on the total sentiment value of the file
+      if(totalSentiment(filename) <= -3)
+      {
+         return 1;
+      }
+      else if(totalSentiment(filename) <= -1)
+      {
+         return 2;
+      }
+      else if(totalSentiment(filename) <= 1)
+      {
+         return 3;
+      }
+      else if(totalSentiment(filename) <= 3)
+      {
+         return 4;
+      }
+      else
+      {
+         return 5;
+      }
+   }
+
+  
   /**
    * Returns the ending punctuation of a string, or the empty string if there is none 
    */
