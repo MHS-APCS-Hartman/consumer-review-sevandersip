@@ -98,6 +98,87 @@ public class Review {
     }
   }
   
+  public static double totalSentiment(String fileName)
+  {
+    String word = "";
+    double totalSentiment = 0.0;
+    String review = textToString(fileName);
+    review.replaceAll("\\p{Punct}", "");
+    for (int i = 0; i < review.length(); i++)
+    {
+       if(review.substring(i, i+1).equals(" "))
+       {
+          totalSentiment += sentimentVal(word);
+          word = "";
+       }else{
+          word += review.substring(i, i+1);
+          removePunctuation(word);
+       }
+     }
+     return totalSentiment;
+   }
+   
+   public static int starRating(String filename)
+   {
+      if(totalSentiment(filename) <= -3)
+      {
+         return 1;
+      }
+      else if(totalSentiment(filename) <= -1)
+      {
+         return 2;
+      }
+      else if(totalSentiment(filename) <= 1)
+      {
+         return 3;
+      }
+      else if(totalSentiment(filename) <= 3)
+      {
+         return 4;
+      }
+      else
+      {
+         return 5;
+      }
+   }
+  
+  // fakeReview() method added
+  public static String fakeReview(String fileName)
+  {
+    // set fake review
+    String review = textToString(fileName);
+    String fake = "";
+    
+    // for each character in the review
+    for(int i = 0; i < review.length()-1; i++)
+    {
+       // if the i equals an asterisk, replace it with a space and add this to the fake review
+       if(review.substring(i, i+1).equals("*"))
+       {
+          i++;
+          String replace = "";
+          boolean isWord = true;
+          while(isWord)
+          {
+             i++;
+             if(review.substring(i, i+1).equals(" "))
+             {
+                isWord = false;
+             }
+          }
+          replace = randomAdjective() + " ";
+          fake += replace;
+       }
+      // if the review does not have any asterisks, then add it to the review
+       else
+       {
+          fake += review.substring(i, i+1);
+       }
+    }
+    // return the fake review
+    return fake; 
+  }
+  
   /**
    * Returns the ending punctuation of a string, or the empty string if there is none 
    */
