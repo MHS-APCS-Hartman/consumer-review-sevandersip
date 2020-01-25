@@ -98,23 +98,25 @@ public class Review {
     }
   }
   
-  
+
+  // total sentiment value method added by me
   public static double totalSentiment(String fileName)
-
-
   {
+    // set the word and sentiment
     String word = "";
     double totalSentiment = 0.0;
     String review = textToString(fileName);
-    review.replaceAll("\\p{Punct}", "");
+    review.replaceAll("\\p{Punct}", "");// replacing all punctuaiton marks with a void space
     for (int i = 0; i < review.length(); i++)
     {
+       // if there's a space (end of the word), add the value to total sentiment value
        if(review.substring(i, i+1).equals(" "))
        {
           totalSentiment += sentimentVal(word);
           word = "";
        }
-       else{
+
+       else{ // if not the end of the word, remove any punctiation.
           word += review.substring(i, i+1);
           removePunctuation(word);
        }
@@ -237,6 +239,7 @@ public class Review {
     }
     return sentence;
   }
+
 
   
   /**
