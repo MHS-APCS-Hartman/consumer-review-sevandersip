@@ -98,9 +98,9 @@ public class Review {
     }
   }
   
-
   
   public static double totalSentiment(String fileName)
+
 
   {
     String word = "";
@@ -113,14 +113,17 @@ public class Review {
        {
           totalSentiment += sentimentVal(word);
           word = "";
-       }else{
+       }
+       else{
           word += review.substring(i, i+1);
           removePunctuation(word);
        }
      }
      return totalSentiment;
    }
-   
+
+   // starRating() method added
+   // returns the amount of stars out of five based on the total sentiment value of the file
    public static int starRating(String filename)
    {
       if(totalSentiment(filename) <= -3)
@@ -144,6 +147,7 @@ public class Review {
          return 5;
       }
    }
+
   
   // fakeReview() method added
   public static String fakeReview(String fileName)
@@ -185,7 +189,7 @@ public class Review {
   // added fakeReviewStronger() method
   public static String fakeReviewStronger(String fileName)
   {
-    // sets the review, word, and sentence
+   // sets the review, word, and sentence
     String review = textToString(fileName);
     String word = "";
     String sentence = "";
@@ -233,6 +237,7 @@ public class Review {
     }
     return sentence;
   }
+
   
   /**
    * Returns the ending punctuation of a string, or the empty string if there is none 
