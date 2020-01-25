@@ -98,7 +98,10 @@ public class Review {
     }
   }
   
+
+  
   public static double totalSentiment(String fileName)
+
   {
     String word = "";
     double totalSentiment = 0.0;
@@ -177,6 +180,58 @@ public class Review {
     }
     // return the fake review
     return fake; 
+  }
+
+  // added fakeReviewStronger() method
+  public static String fakeReviewStronger(String fileName)
+  {
+    // sets the review, word, and sentence
+    String review = textToString(fileName);
+    String word = "";
+    String sentence = "";
+    // goes through each character of the review
+    for (int i = 0; i < review.length(); i++) 
+    {
+      // if the review has a space or the character is the last character
+      if ((review.substring(i, i + 1).equals(" ")) || (i == review.length() - 1)) {
+       // if the word ends a space set the word and add it to the review
+        if (word.endsWith(" ")) word = word.substring(0, word.length()-1);
+        word += review.substring(i, i + 1);
+        
+        // if the word starts with an asterisk, takes the sentiment value and sets an int newAdj
+        if (word.startsWith("*"))
+        {
+          
+           double s  = sentimentVal(word);
+           String newAdj = "";
+          
+          // if statements for positive and negative words, creates new adjectives to make the review stronger pos or stronger neg
+           if (s < 0)
+           {
+               while ( (newAdj.equals("")) || (sentimentVal(newAdj) >= s) )
+                  newAdj = randomNegativeAdj();
+           }
+           else if (s > 0)
+           {
+               while ( (newAdj.equals("")) || (sentimentVal(newAdj) <= s) )
+                  newAdj = randomPositiveAdj();
+
+           }
+          // remove asterisk and keep the neutral adjectives also neutral
+           else
+           {
+               newAdj = word.substring(1);
+           }
+
+           sentence += newAdj + getPunctuation(word) + " ";
+        } else {
+           sentence += word + " ";
+        }
+        // reset the word
+        word = "";
+      }
+    }
+    return sentence;
   }
   
   /**
