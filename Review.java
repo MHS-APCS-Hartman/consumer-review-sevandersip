@@ -98,8 +98,10 @@ public class Review {
     }
   }
   
+
   
-    public static double totalSentiment(String fileName)
+  public static double totalSentiment(String fileName)
+
   {
     String word = "";
     double totalSentiment = 0.0;
@@ -179,7 +181,7 @@ public class Review {
     // return the fake review
     return fake; 
   }
-  
+
   // added fakeReviewStronger() method
   public static String fakeReviewStronger(String fileName)
   {
